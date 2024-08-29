@@ -17,11 +17,11 @@ export const autoCompleteLocation = async (
                 },
             });
             return response;
-        } catch (_error) {
+        } catch (_error: any) {
             const error = _error as AxiosError;
             if (error.response) {
                 console.log(error.response.data);
-            }
+            } else console.log(_error.message);
         }
     }
     return { predictions: [] };
@@ -43,11 +43,11 @@ export const placeDetail = async (
                 },
             });
             return response.result;
-        } catch (_error) {
+        } catch (_error: any) {
             const error = _error as AxiosError;
             if (error.response) {
                 console.log(error.response.data);
-            }
+            } else console.log(_error.message);
         }
     }
     return {};
@@ -57,8 +57,6 @@ export const useAutoCompleteLocation = (option: google.maps.places.Autocompletio
     return useQuery({
         queryKey: ['autoCompleteLocation', option.input],
         queryFn: () => autoCompleteLocation(option),
-        staleTime: Infinity,
-
     });
 };
 
@@ -66,7 +64,6 @@ export const usePlaceDetail = (option: google.maps.places.PlaceDetailsRequest) =
     return useQuery({
         queryKey: ['placeDetail', option.placeId],
         queryFn: () => placeDetail(option),
-        staleTime: Infinity,
     });
 };
 

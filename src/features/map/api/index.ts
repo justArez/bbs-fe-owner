@@ -1,1 +1,1 @@
-export * from "./mapAPI";
+export * from './placeAPI';
